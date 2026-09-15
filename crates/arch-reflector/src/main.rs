@@ -6,7 +6,7 @@ use futures_util::StreamExt;
 use jiff::{Span, Timestamp};
 use regex::Regex;
 use reqwest::Url;
-use std::cmp::{Ordering, Reverse};
+use std::cmp::Ordering;
 use std::collections::HashMap;
 use std::ffi::OsString;
 use std::fs::{self, File};
@@ -437,7 +437,7 @@ async fn sort_status(
         }),
         SortType::Delay => status
             .urls
-            .sort_by_key(|mir| Reverse(mir.delay.map(|delay| delay.max(0)))),
+            .sort_by_key(|mir| mir.delay.map(|delay| delay.max(0))),
     }
 }
 
