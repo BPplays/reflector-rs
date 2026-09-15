@@ -595,9 +595,9 @@ fn filter_status(filters: &Filters, status: &mut Status) {
         // Filter by delay. The delay is given as a float of hours and must be
         // converted to seconds.
         if let Some(delay) = filters.delay {
-            let max_delay = (delay * 3600.0) as u32;
+            let max_delay = (delay * 3600.0) as i64;
             if let Some(mirror_delay) = mirror.delay {
-                if mirror_delay > max_delay {
+                if mirror_delay.max(0) > max_delay {
                     return false;
                 }
             } else {
