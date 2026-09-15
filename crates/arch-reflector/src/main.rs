@@ -435,7 +435,9 @@ async fn sort_status(
                 .unwrap_or(Ordering::Equal)
                 .reverse()
         }),
-        SortType::Delay => status.urls.sort_by_key(|mir| Reverse(mir.delay)),
+        SortType::Delay => status
+            .urls
+            .sort_by_key(|mir| Reverse(mir.delay.map(|delay| delay.max(0)))),
     }
 }
 
